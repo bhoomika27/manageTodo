@@ -1,0 +1,137 @@
+#container{
+    height: 10%;
+    width: 90%;
+    margin: 0 auto;
+    background-color: rgb(185, 199, 199);
+    box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important
+}
+.todoHeading{
+  text-align: center;
+  color: white;
+  text-shadow: 1px 1px 2px black, 0 0 25px rgb(10, 97, 197), 0 0 5px rgb(4, 50, 136);
+}
+.title,.Description,.business,.dueDate{
+    width: 56%;
+    height: 60%;
+    float: left;
+    display: inline-block;
+    /* margin-left: 30px; */
+}
+.Description{
+    height: 40px !important;
+}
+.titleDiv,.descDiv,.dueDayDiv,.statusDiv{
+    height: 40px;
+    width: 100%;
+    margin-top: 20px;
+}
+#taskForm{
+    padding: 12px;
+}
+.titleLabel,.descLabel{
+    width: 36% !important;
+    height: 30px;
+    font-size: 20px;
+    font-weight: bold;
+    float: left;
+    display: inline-block;
+}
+.App{
+    height: 100%;
+    width: 100%;
+}
+h2{
+    margin: 5px;
+}
+.displayTask{
+    display: inline-block;
+    margin-top: 15px;
+    width: 24%;
+    height: 200px;
+    /* border: 1px solid grey; */
+    padding: 10px;
+    margin-left: 5%;
+    margin-bottom: 40px;
+    /* box-shadow: 5px 5px 8px blue, 10px 10px 8px red, 15px 15px 8px green; */
+    box-shadow: 10px 10px 8px rgb(170, 214, 12), 15px 15px 8px rgb(100, 240, 100);
+    background-color: rgb(238, 238, 75);
+
+}
+#editLink{
+    color: #fff
+
+}
+.addBtn{
+    display: block;
+    margin: 0 auto;
+    margin-top: 10px;
+}
+.addBtn{
+	/* background styles */
+	position: relative;
+	padding: 8px 15px;
+	background-color: rgb(28, 8, 121); /*for compatibility with older browsers*/
+	background-image: linear-gradient(rgb(91, 64, 189),rgb(7, 72, 133));
+    border-radius: 10px;
+	/* text styles */
+	text-decoration: none;
+	color: #fff;
+	font-size: 18px;
+	font-family: sans-serif;
+	font-weight: 80;
+}
+.addBtn:after{
+	content: '';
+	position: absolute;
+	top: 2px;
+    left: 2px;
+    height: 40px;
+	width: calc(100% - 4px);
+	height: 50%;
+	background: linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.2));
+}
+.deleteBtn{
+    height: 25px;
+    width: 25px;
+    float: right;
+    display: inline-block;
+}
+.displayTask{
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+.taskTitle{
+    margin: 0;
+    width: 100%;
+    font-weight: bold;
+}
+.editBtn,.deleteBtn{
+display: inline-block;
+    width: 40%;
+    float: left;
+    border-radius: 10px;
+    background-color: #3535c3;
+    color: white;
+    height: 25px;
+}
+.deleteBtn{
+    margin-left: 10%;
+    float: right !important;
+}
+html {
+    scroll-behavior: smooth;
+  }
+  .taskTitle,.taskDescription{
+      width: 100%;
+      margin:5px;
+  }
+  .taskStatus{
+      display: block;
+      margin-bottom: 10px
+  }
+  .todoContainer{
+      background-color: pink;
+      margin-top: 20px;
+      padding:10px;
+  }
+ 
