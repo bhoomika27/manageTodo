@@ -6,7 +6,8 @@
 }
 .userDropdownDiv{
     box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important;
-    background-color: aquamarine;
+    height: 250px;
+    background-image: url("/images/simpleBackground.jpg");
 }
 .todoHeading{
   text-align: center;
@@ -133,7 +134,7 @@ html {
   .todoContainer{
       background-color: pink;
       margin-top: 20px;
-      padding:10px;
+      padding:15px;
   }
  .userTodosDiv p{
      display: inline-block;
@@ -145,11 +146,16 @@ html {
     border-radius: 8px;
  }
  .todosListBtn,.historyTodoBtn,.addTodoBtn{
-    border: 1px solid grey;
-    background-color: yellow;
-    padding: 4px;
-    font-size: 16px;
+    background-color: #0400ffcc;
+    padding: 8px;
+    padding-left: 12px;
+    padding-right: 12px;
+    font-size: 18px;
     margin-right: 2%;
+    border-radius: 13px;
+    border: none;
+    color: white;
+    outline: none;
  }
  .todosListBtn,.historyTodoBtn{
      float: left;
@@ -162,4 +168,18 @@ html {
  }
  .addTodosDiv{
      height: 50px;
+ }
+
+ .todoHeading{
+     padding: 20px;
+ }
+ .dropdownSelect{
+     margin-left: 20%;
+     margin-right: 20%;
+     width: 60%;
+     height: 40px;
+ }
+ .todoContainer{
+    box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important;
+    background-color: rgba(100, 240, 100, 0.15);
  }

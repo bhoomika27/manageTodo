@@ -14,7 +14,6 @@ class AddList extends PureComponent {
 
         this.state = {
             today:null,
-            addFlag: false,
             // taskStatus:false
 
         }
@@ -39,12 +38,134 @@ class AddList extends PureComponent {
         fetch(' https://my-json-server.typicode.com/bhoomika27/todoData/todos')
                 .then(response => response.json())
                 .then(json => {this.props.setUserTodos(json);
-                console.log(json)})
+                    console.log(json)
+                counter = json.length})
 
     }
+
     addItem(){
-        this.setState({addFlag:true})
-    	/*todo : check input is not blank*/
+            
+        this.props.setCheckboxValue("addFlag",true)
+    }
+    handleSubmit=(e)=>{
+
+        e.preventDefault();      
+        counter+=1;
+        var userId=parseInt(this.props.todoApp.userId,10);
+        console.log(counter ,userId)
+        this.props.setTaskList(counter,userId );
+        this.props.setCheckboxValue("addFlag",false);
+    }
+
+    handleInputValues =(e)=>{
+        this.props.setFieldsValue(e.target.name,e.target.value)        
+    }
+ 
+
+    getDate=()=>{
+        var today= new Date().toJSON().split('T')[0];
+        this.setState({today:today})
+    }
+    handleEditList=()=>{
+        this.props.setEditedList();
+    }
+    handleEditTask=(e,todo,i)=>{
+        console.log("I want to be edited")
+        this.props.editTask(todo,i);
+ 
+     }
+    updateCheckbox=(e,id)=>{
+        console.log(e.target.name ,e.target.checked ,id)
+        this.props.updateCheckboxValue(e.target.name ,e.target.checked ,id)
+    }
+    handleDeleteTask=(e,todo)=>{
+        console.log(e.target.value ,todo)
+        this.props.deleteTask(todo);
+        }
+    handleCheckbox =(e)=>{
+        this.props.setCheckboxValue(e.target.name,e.target.checked) 
+        // this.setState({[e.target.name]:e.target.checked})
+    }
+    render() {
+        const usersData = this.props.todoApp.data;
+        return (
+            <div id="container">
+                <div id="userDropdownDiv" className="userDropdownDiv">
+                <h1 id="todoHeading" className="todoHeading">User Todos List!!</h1>
+                <div className="statusDiv">
+                <select id="status" name="userId" value={this.props.todoApp.userId} className="dropdownSelect" onChange={this.handleInputValues}>
+                    <option value="default" disabled selected>Select User</option>
+                    {Object.values(this.props.todoApp.data).map((user ,i)=>{
+                    return <option key={i} value={user.id}>{user.name}</option>
+                    })}
+                </select>
+                </div>
+           
+                {this.props.todoApp.edit? <button className="addBtn" onClick={this.handleEditList}>SAVE CHANGES</button>:''}
+                </div>
+     
+                { this.props.todoApp.todos && this.props.todoApp.userId &&
+                <div className="todoContainer">
+                    <div className="todoBtnDiv">
+                        <label className="todosListBtn">Todos</label>
+                        <label className="historyTodoBtn">History</label>
+                        <label className="addTodoBtn" onClick={() => this.addItem()}>Add Todos</label>
+                    </div>
+                        {this.props.todoApp.addFlag &&
+                        <div className="addTodosDiv">
+                        <input type="checkbox" name="taskStatus" className="userTodosCheckBox" onChange={this.handleCheckbox} checked={this.props.todoApp.taskStatus}></input>
+                        <input className="addItemInput" name="title" onChange={this.handleInputValues}></input>
+                        <img src="./images/cancel.svg" alt="Not Found" className="deleteBtn"/>
+                        <label className="updateTodoLbl" onClick={this.handleSubmit}>Add</label>
+                        </div>}
+               
+                        <div>
+                    {/* { this.props.todoApp.todos &&  */}
+                        { Object.values(this.props.todoApp.todos).map((user,i)=>{
+                            console.log(this.props.todoApp.userId)
+                            if(this.props.todoApp.userId==user.userId){
+                                // console.log(user)
+                                return (<div className="userTodosDiv">
+                                            <input type="checkbox" name="taskStatus" className="userTodosCheckBox" onChange={(e)=>this.updateCheckbox(e,user.id)} checked={user.completed} />
+                                            {/* <input type="text" name="" key={user.userId} value={user.title} onChange={(e)=>handleEditTask(e,e.target.value ,item.key)}/> */}
+                                            <p>{user.title} </p>
+                                            <img src="./images/cancel.svg" alt="Not Found"  className="deleteBtn"  onClick={(e)=>this.handleDeleteTask(e,user)} />
+                                            <label className="updateTodoLbl">Update</label>
+                                            </div>)
+                                        }
+                                    })
+                        }
+                        </div>
+             
+                </div>
+    }
+               
+            </div>
+
+        )}
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return bindActionCreators({
+        setFieldsValue:actionsTodo.setFieldsValue,
+        setCheckboxValue:actionsTodo.setCheckboxValue,
+        setUserData:actionsTodo.setUserData,
+        setUserTodos:actionsTodo.setUserTodos,
+        setTaskList:actionsTodo.setTaskList,
+        setEditedList:actionsTodo.setEditedList,
+        deleteTask:actionsTodo.deleteTask,
+        updateCheckboxValue:actionsTodo.updateCheckboxValue
+    },dispatch)
+};
+const mapStateToProps = (state) => {
+    return {
+        todoApp: state.todoApp
+    }
+}
+
+export default connect(mapStateToProps,mapDispatchToProps)(AddList);
+
+	/*todo : check input is not blank*/
         /*todo : check user dropdown  is not blank*/
        
         // let title = document.getElementById("addItem").value;
@@ -64,114 +185,3 @@ class AddList extends PureComponent {
 		//   .then(response => response.json())
 		//   .then(json => {console.log(json);
 		//   	document.getElementById("addItem").value = '';})
-
-    }
-    handleSubmit=(e)=>{
-
-        e.preventDefault();
-        counter+=1;
-        this.props.setTaskList(counter);
-    }
-
-    handleInputValues =(e)=>{
-        this.props.setFieldsValue(e.target.name,e.target.value)        
-    }
-
-    getDate=()=>{
-        var today= new Date().toJSON().split('T')[0];
-        this.setState({today:today})
-    }
-    handleEditList=()=>{
-        this.props.setEditedList();
-    }
-    handleCheckbox =(e)=>{
-        console.log(e.target.checked ,e.target.name)
-        this.props.setCheckboxValue(e.target.name,e.target.checked) 
-        // this.setState({[e.target.name]:e.target.checked})
-    }
-    render() {
-        console.log(this.props.todoApp.data)
-        console.log(this.props.todoApp.todos)
-        const usersData = this.props.todoApp.data;
-        return (
-            <div id="container">
-                <div id="userDropdownDiv" className="userDropdownDiv">
-                <h2 id="todoHeading" className="todoHeading">Users TODO List!!</h2>
-                <div className="statusDiv">
-                <label className="titleLabel" htmlFor="business">Status</label>
-                <select id="status" name="status" value={this.props.todoApp.status} className="business" onChange={this.handleInputValues}>
-                    <option value="default" disabled selected>Select your option</option>
-                    {Object.values(this.props.todoApp.data).map((user ,i)=>{
-                    return <option key={i} value={user.id}>{user.name}</option>
-                    })}
-                </select>
-                </div>
-                {/* <div className="titleDiv">
-                <label className="titleLabel" >Title</label>
-                <input type="text" id="title" maxLength="50" name="title" className="title" placeholder="Enter Title" 
-                value={this.props.todoApp.title} onChange={this.handleInputValues}></input>
-                </div> */}
-           
-                {this.props.todoApp.edit? <button className="addBtn" onClick={this.handleEditList}>SAVE CHANGES</button>:''}
-                
-                <button type="submit" className="addBtn" onClick={this.handleSubmit}>SHOW TODO TASK</button>
-                </div>
-     
-
-                <div className="todoContainer">
-                    <div className="todoBtnDiv">
-                    <label className="todosListBtn">Todos</label>
-                    <label className="historyTodoBtn">History</label>
-                    <label className="addTodoBtn" onClick={() => this.addItem()}>Add Todos</label>
-                </div>
-                {this.state.addFlag &&
-                 <div className="addTodosDiv">
-                 <input type="checkbox" name="taskStatus" className="userTodosCheckBox" onChange={this.handleCheckbox} checked={this.props.todoApp.taskStatus}></input>
-                 <input></input>
-                 <img src="./images/cancel.svg" alt="Not Found" className="deleteBtn"/>
-                 <label className="updateTodoLbl">Add</label>
-                 </div>}
-               
-                <div>
-            { this.props.todoApp.todos && 
-                  Object.values(this.props.todoApp.todos).map((user,i)=>{
-                      console.log(user)
-                      if(this.props.todoApp.status==user.userId){
-                          return (<div className="userTodosDiv">
-                                    <Checkbox className="userTodosCheckBox" checked={user.completed}/>
-                                    <p>{user.title}</p>
-                                    <img src="./images/cancel.svg" alt="Not Found" className="deleteBtn"/>
-                                    <label className="updateTodoLbl">Update</label>
-                                    
-                                     {/* onClick={(e)=>this.handleDeleteTask(e,todo) */}
-                                    </div>)
-                      }
-                  })
-                }
-                </div>
-             
-                </div>
-                
-               
-            </div>
-
-        )
-    }
-}
-const mapDispatchToProps = (dispatch) => {
-    return bindActionCreators({
-        setFieldsValue:actionsTodo.setFieldsValue,
-        setCheckboxValue:actionsTodo.setCheckboxValue,
-        setUserData:actionsTodo.setUserData,
-        setUserTodos:actionsTodo.setUserTodos,
-        setTaskList:actionsTodo.setTaskList,
-        setEditedList:actionsTodo.setEditedList
-    },dispatch)
-};
-const mapStateToProps = (state) => {
-    return {
-        todoApp: state.todoApp
-    }
-}
-
-export default connect(mapStateToProps,mapDispatchToProps)(AddList);

@@ -18,9 +18,10 @@ export const setUserTodos = (data)=>({
     type:'ADD_USERS_TODOS',
     data:data
 })
-export const setTaskList = (tasklist)=>({
+export const setTaskList = (tasklist ,userId)=>({
 type:'ADD_TASK',
-tasklist:tasklist
+tasklist:tasklist,
+userId:userId
 })
 
 export const deleteTask = (todo)=>({
@@ -35,12 +36,12 @@ export const editTask = (todo,i)=>({
 export const setEditedList = ()=>({
     type:'SET_EDITED_LIST',
 })
-export const setDateFieldsValue = (name,value,days)=>({
-    type:'SET_DATE_FIELD',
+export const updateCheckboxValue = (name,checked ,id)=>({
+    type:'UPDATE_CHECKBOX',
     name:name,
-    value:value,
-    days:days
+    checked:checked,
+    id:id
+    })
 
-})
 
 

@@ -8,9 +8,10 @@ const initialState = {
     title:'',
     desc:'',
     status:"default",
-    today:null,
     edit:false,
-    taskStatus:false
+    taskStatus:false,
+    addFlag: false,
+    updateCheckBox:''
 
   };
 
@@ -21,22 +22,21 @@ function todoApp(state = initialState, action) {
     case 'ADD_FIELD_VALUE':
         return state= setFieldsValue(state,action.name,action.value);
     case 'ADD_CHECKBOX_VALUE':
-        return state= setCheckboxValue(state,action.name,action.value);
-        
+        return state= setCheckboxValue(state,action.name,action.value);        
     case 'ADD_USERS_DATA':
         return state= setUserData(state,action.data);
     case 'ADD_USERS_TODOS':
         return state= setUserTodos(state,action.data);          
     case 'ADD_TASK':
-        return state= setTodoList(state,action.tasklist);
+        return state= setTodoList(state,action.tasklist,action.userId);
     case 'DELETE_TASK':
-        return state= deleteFromList(state,action.todo,action.index);
+        return state= deleteFromList(state,action.todo);
+    case 'UPDATE_CHECKBOX':
+        return state= updateCheckboxValue(state,action.name,action.checked,action.id);
     case 'EDIT_TASK':
         return state= editFromList(state,action.todo);
     case 'SET_EDITED_LIST':
           return state= setEditedList(state,action.todo);
-    case 'SET_DATE_FIELD':
-          return state= setDateField(state,action.name,action.value,action.days);    
           
         
     default:
@@ -45,6 +45,7 @@ function todoApp(state = initialState, action) {
 }
 
 const setFieldsValue=(state,name,value)=>{
+  console.log(name,value)
   state={
     ...state,
     [name]:value
@@ -56,6 +57,15 @@ const setCheckboxValue=(state,name,value)=>{
   state={
     ...state,
     [name]:value
+  }
+  return state
+}
+const updateCheckboxValue=(state,name,checked,id)=>{
+  console.log(name,checked,id)
+  console.log(state)
+  state={
+    ...state,
+    [name]:checked
   }
   return state
 }
@@ -74,20 +84,14 @@ const setUserTodos=(state,data)=>{
   return state
 }
 
-const setDateField=(state,name,value,days)=>{
-  state={
-    ...state,
-    [name]:value,
-    days:days
-  }
-  return state
-}
 
-const setTodoList=(state,counter)=>{
-  const tasklist = {id:counter,title: state.title,status:state.status};
+const setTodoList=(state,counter,userId)=>{
+  const tasklist = {userId:userId, id:counter,title: state.title,completed:state.taskStatus};
+  console.log(tasklist)
+  console.log(state)
   state={
     ...state,
-    tasklist:[...state.tasklist,tasklist]
+    todos:[...state.todos,tasklist]
   }
 return state
 }
@@ -105,16 +109,18 @@ return state
 
 const deleteFromList=(state,todo)=>{
 
-
-  var tasks =state.tasklist.filter((task)=>{
+console.log(todo)
+console.log(state)
+  var tasks =state.todos.filter((task)=>{
+    console.log(task.id ,"wowwwww",todo.id)
     return task.id!==todo.id
   })
 
   state={
     ...state,
-    tasklist:tasks
+    todos:tasks
   }
-
+console.log(state.todos)
 return state
 }
 
