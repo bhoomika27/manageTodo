@@ -5,6 +5,11 @@ export const setFieldsValue = (name,value)=>({
     name:name,
     value:value
 })
+export const setCheckboxValue = (name,value)=>({
+    type:'ADD_CHECKBOX_VALUE',
+    name:name,
+    value:value
+})
 export const setUserData = (data)=>({
     type:'ADD_USERS_DATA',
     data:data

@@ -10,7 +10,7 @@ const initialState = {
     status:"default",
     today:null,
     edit:false,
-    days:0
+    taskStatus:false
 
   };
 
@@ -20,6 +20,9 @@ function todoApp(state = initialState, action) {
   switch (action.type) {
     case 'ADD_FIELD_VALUE':
         return state= setFieldsValue(state,action.name,action.value);
+    case 'ADD_CHECKBOX_VALUE':
+        return state= setCheckboxValue(state,action.name,action.value);
+        
     case 'ADD_USERS_DATA':
         return state= setUserData(state,action.data);
     case 'ADD_USERS_TODOS':
@@ -42,6 +45,14 @@ function todoApp(state = initialState, action) {
 }
 
 const setFieldsValue=(state,name,value)=>{
+  state={
+    ...state,
+    [name]:value
+  }
+  return state
+}
+const setCheckboxValue=(state,name,value)=>{
+  console.log(name,value)
   state={
     ...state,
     [name]:value

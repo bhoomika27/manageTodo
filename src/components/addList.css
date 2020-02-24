@@ -2,8 +2,11 @@
     height: 10%;
     width: 90%;
     margin: 0 auto;
-    background-color: rgb(185, 199, 199);
-    box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important
+   
+}
+.userDropdownDiv{
+    box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important;
+    background-color: aquamarine;
 }
 .todoHeading{
   text-align: center;
@@ -91,10 +94,9 @@ h2{
 	background: linear-gradient(rgba(255,255,255,0.8), rgba(255,255,255,0.2));
 }
 .deleteBtn{
-    height: 25px;
-    width: 25px;
+    height: 20px;
+    width: 20px;
     float: right;
-    display: inline-block;
 }
 .displayTask{
     overflow-y: auto;
@@ -105,8 +107,7 @@ h2{
     width: 100%;
     font-weight: bold;
 }
-.editBtn,.deleteBtn{
-display: inline-block;
+.editBtn{
     width: 40%;
     float: left;
     border-radius: 10px;
@@ -115,7 +116,7 @@ display: inline-block;
     height: 25px;
 }
 .deleteBtn{
-    margin-left: 10%;
+    margin-left: 5%;
     float: right !important;
 }
 html {
@@ -134,4 +135,31 @@ html {
       margin-top: 20px;
       padding:10px;
   }
- 
+ .userTodosDiv p{
+     display: inline-block;
+ }
+ .updateTodoLbl{
+    float: right;
+    border: 1px solid black;
+    padding: 3px;
+    border-radius: 8px;
+ }
+ .todosListBtn,.historyTodoBtn,.addTodoBtn{
+    border: 1px solid grey;
+    background-color: yellow;
+    padding: 4px;
+    font-size: 16px;
+    margin-right: 2%;
+ }
+ .todosListBtn,.historyTodoBtn{
+     float: left;
+ }
+ .addTodoBtn{
+   float: right;
+ }
+ .todoBtnDiv{
+     height: 55px;
+ }
+ .addTodosDiv{
+     height: 50px;
+ }
