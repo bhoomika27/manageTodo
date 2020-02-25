@@ -11,11 +11,11 @@ const initialState = {
     edit:false,
     taskStatus:false,
     addFlag: false,
-    updateCheckBox:''
+    updateCheckBox:'',
+    updateTodoId:'',
+    history:[]
 
   };
-
-
 function todoApp(state = initialState, action) {
     
   switch (action.type) {
@@ -33,10 +33,8 @@ function todoApp(state = initialState, action) {
         return state= deleteFromList(state,action.todo);
     case 'UPDATE_CHECKBOX':
         return state= updateCheckboxValue(state,action.name,action.checked,action.id);
-    case 'EDIT_TASK':
-        return state= editFromList(state,action.todo);
-    case 'SET_EDITED_LIST':
-          return state= setEditedList(state,action.todo);
+    case 'UPDATE_TASK':
+          return state= setUpdatedList(state,action.tasklist,action.userId, action.title,action.completed);
           
         
     default:
@@ -45,7 +43,7 @@ function todoApp(state = initialState, action) {
 }
 
 const setFieldsValue=(state,name,value)=>{
-  console.log(name,value)
+
   state={
     ...state,
     [name]:value
@@ -53,7 +51,7 @@ const setFieldsValue=(state,name,value)=>{
   return state
 }
 const setCheckboxValue=(state,name,value)=>{
-  console.log(name,value)
+ 
   state={
     ...state,
     [name]:value
@@ -61,8 +59,7 @@ const setCheckboxValue=(state,name,value)=>{
   return state
 }
 const updateCheckboxValue=(state,name,checked,id)=>{
-  console.log(name,checked,id)
-  console.log(state)
+
   state={
     ...state,
     [name]:checked
@@ -87,32 +84,34 @@ const setUserTodos=(state,data)=>{
 
 const setTodoList=(state,counter,userId)=>{
   const tasklist = {userId:userId, id:counter,title: state.title,completed:state.taskStatus};
-  console.log(tasklist)
-  console.log(state)
   state={
     ...state,
     todos:[...state.todos,tasklist]
   }
 return state
 }
-const setEditedList=(state)=>{
-  const tasklist=[...state.tasklist];
-  tasklist[state.id-1]={id:state.id,title: state.title,status:state.status};
 
+const setUpdatedList=(state,id,userId, title,completed)=>{
+  let todo=state.todos.slice(0)
+  todo.map((task,i)=>{
+ if(task.id===id){
+   
+   task.completed=completed;
+   task.title=title;
+   state.history=[...state.history,task]
+ }
+  })
   state={
     ...state,
-    edit:false,
-    tasklist:tasklist
+    todos:[...state.todos],
+    updateTodoId:id,
   }
 return state
 }
 
 const deleteFromList=(state,todo)=>{
 
-console.log(todo)
-console.log(state)
   var tasks =state.todos.filter((task)=>{
-    console.log(task.id ,"wowwwww",todo.id)
     return task.id!==todo.id
   })
 
@@ -120,27 +119,8 @@ console.log(state)
     ...state,
     todos:tasks
   }
-console.log(state.todos)
-return state
+  return state
 }
-
-
-
-
-
-const editFromList=(state,todo,i)=>{
-
-  state={
-    ...state,
-    id:todo.id,
-    title:todo.title,
-    desc:todo.description,
-    status:todo.status,
-    edit:true
-  }
-return state
-}
-
 
 
 export default todoApp

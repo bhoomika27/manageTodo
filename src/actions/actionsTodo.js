@@ -24,6 +24,14 @@ tasklist:tasklist,
 userId:userId
 })
 
+export const updateTaskList = (tasklist ,userId, val,checkval)=>({
+type:'UPDATE_TASK',
+tasklist:tasklist,
+userId:userId,
+title:val,
+completed:checkval
+})
+
 export const deleteTask = (todo)=>({
     type:'DELETE_TASK',
     todo:todo

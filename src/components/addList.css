@@ -1,12 +1,12 @@
+
 #container{
     height: 10%;
     width: 90%;
     margin: 0 auto;
-   
-}
+   }
 .userDropdownDiv{
     box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important;
-    height: 250px;
+    height: 280px;
     background-image: url("/images/simpleBackground.jpg");
 }
 .todoHeading{
@@ -97,7 +97,13 @@ h2{
 .deleteBtn{
     height: 20px;
     width: 20px;
+      margin-left: 5%;
+    float: right !important;
+}
+.updatePnl{
+  display: inline-block;
     float: right;
+        padding-top: 1%;
 }
 .displayTask{
     overflow-y: auto;
@@ -139,10 +145,18 @@ html {
      display: inline-block;
  }
  .updateTodoLbl{
-    float: right;
     border: 1px solid black;
     padding: 3px;
     border-radius: 8px;
+    margin-left: -40%;
+    display: none;
+ }
+ .updateTodoLblAdd{
+        border: 1px solid black;
+    padding: 3px;
+    border-radius: 8px;
+    margin-left: 72%;
+   
  }
  .todosListBtn,.historyTodoBtn,.addTodoBtn{
     background-color: #0400ffcc;
@@ -181,4 +195,39 @@ html {
  .todoContainer{
     box-shadow: 0 10px 16px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19) !important;
     background-color: rgba(100, 240, 100, 0.15);
+ }
+ p{
+  cursor: pointer;
+ }
+ 
+ .show{
+  display: show;
+ }
+ .dib{
+display: inline-block;
+
+ }
+ .dib input{
+    margin-bottom: 8px;
+    margin-top: 8px;
+    height: 30px;
+    border-radius: 4px;
+ }
+ .dn{
+  display: none;
+ }
+ .addItemInput{
+     height: 30px;
+ }
+ .addTodoLbl{
+    border: 1px solid #dc0c0c;
+    padding: 6px;
+    border-radius: 8px;
+    margin-left: 5%;
+    color: white;
+    background-color: rgba(244, 67, 54, 0.77);
+    font-weight: bold;
+ }
+ .infoDetail{
+     text-align: center;
  }
